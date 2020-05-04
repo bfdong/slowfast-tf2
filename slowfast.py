@@ -22,7 +22,7 @@ class SLOWFAST(object):
     # build_model
 
     def build_model(self,input_shape):
-        print('===============>Building %s model' % (self.mode),input_shape)
+
         x_input = tf.keras.layers.Input(shape=input_shape,dtype=tf.float32, name='input_node')
 
         fast_x = x_input

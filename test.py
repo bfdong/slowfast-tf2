@@ -21,18 +21,18 @@ np.set_printoptions(suppress=True)
 flags = tf.compat.v1.app.flags
 gpu_num = 1
 
-flags.DEFINE_float('learning_rate', 0.001, 'Initial learning rate.')
+
 flags.DEFINE_integer('max_steps', 20000, 'Number of steps to run trainer.')
 flags.DEFINE_integer('epoch_steps', 2, 'Number of steps to run epoch.')
 flags.DEFINE_integer('batch_size', 8, 'Batch size.')
-flags.DEFINE_integer('num_frame_per_clib', 16, 'Nummber of frames per clib')
+flags.DEFINE_integer('num_frame_per_clib', 32, 'Nummber of frames per clib')
 flags.DEFINE_integer('sample_rate', 1, 'Sample rate for clib')
-flags.DEFINE_integer('width', 172, 'Crop_size')
-flags.DEFINE_integer('height', 128, 'Crop_size')
-flags.DEFINE_integer('crop_size', 112, 'Crop_size')
+flags.DEFINE_integer('width', 256, 'Crop_size')
+flags.DEFINE_integer('height', 256, 'Crop_size')
+flags.DEFINE_integer('crop_size', 224, 'Crop_size')
 flags.DEFINE_integer('rgb_channels', 3, 'RGB_channels for input')
 flags.DEFINE_integer('flow_channels', 2, 'FLOW_channels for input')
-flags.DEFINE_integer('classics', 14, 'The num of class')
+flags.DEFINE_integer('classics', 101, 'The num of class')
 flags.DEFINE_integer('block_num', 0, 'The num of nonlocal block')
 flags.DEFINE_bool('use_nonlocal', True, 'use or not nonlocal')
 flags.DEFINE_float('weight_decay', 0.001, 'weight decay')
@@ -59,8 +59,6 @@ def run_testing():
     model = NET.build_model(
 
     input_shape=(FLAGS.num_frame_per_clib, FLAGS.crop_size, FLAGS.crop_size, FLAGS.rgb_channels))
-
-    # model = SlowFast_Network(clip_shape=[FLAGS.num_frame_per_clib,FLAGS.crop_size,FLAGS.crop_size,3],num_class=FLAGS.classics,alpha=8,beta=1/8,tau=8,method='T_conv')
 
     ckpt = tf.train.get_checkpoint_state(save_dir)
     print(ckpt)
@@ -95,7 +93,7 @@ def run_testing():
 
         tf_util.topk(predictions, all_label, id_list)
     y_pred = tf.argmax(predictions, 1)
-    conf = tf.math.confusion_matrix(all_label, y_pred, num_classes=FLAGS.classics).numpy() # 计算混淆矩阵
+    conf = tf.math.confusion_matrix(all_label, y_pred, num_classes=FLAGS.classics).numpy()
 
     print(conf)
     print(conf / conf.sum(axis=1)[:, np.newaxis])
