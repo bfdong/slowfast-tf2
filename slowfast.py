@@ -3,7 +3,7 @@
 from collections import namedtuple
 import numpy as np
 import tensorflow as tf
-import six
+
 
 
 
@@ -14,20 +14,10 @@ class SLOWFAST(object):
 
 
 
-    def __init__(self, hps,  mode, use_nonlocal):
-        """ResNet constructor.
-        Args:
-          hps: Hyperparameters.
-          clips: Batches of clips . [batch_size, frames, crop_size, crop_size, channels]
-          labels: Batches of labels . [batch_size, num_classes]
-          mode: One of 'train' and 'test'
-          use_nonlocal: One of 'use_nonlocal' and 'no_nonlocal'
-        """
+    def __init__(self, hps,  mode):
 
         self.hps = hps
         self.mode = mode
-        self.use_nonlocal = use_nonlocal
-
 
     # build_model
 

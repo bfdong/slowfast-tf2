@@ -1,4 +1,5 @@
 import os
+import os
 import sys
 
 
@@ -61,7 +62,7 @@ pre_model_save_dir = './checkpoints/resnet_pretrain1'
 
 
 def run_training():
-    NET = slowfast.SLOWFAST(hps,  'train',  'no_nonlocal' )
+    NET = slowfast.SLOWFAST(hps,  'train' )
     model = NET.build_model(input_shape=(FLAGS.num_frame_per_clib,FLAGS.crop_size,FLAGS.crop_size,FLAGS.rgb_channels))
     #model = SlowFast_Network(clip_shape=[FLAGS.num_frame_per_clib,FLAGS.crop_size,FLAGS.crop_size,3],num_class=FLAGS.classics,alpha=8,beta=1/8,tau=8,method='T_conv')
 

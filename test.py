@@ -55,7 +55,7 @@ test_file = '/home/vdtap/label/test.txt'
 
 
 def run_testing():
-    NET = slowfast.SLOWFAST(hps, 'test', 'no_nonlocal')
+    NET = slowfast.SLOWFAST(hps, 'test')
     model = NET.build_model(
 
     input_shape=(FLAGS.num_frame_per_clib, FLAGS.crop_size, FLAGS.crop_size, FLAGS.rgb_channels))
